@@ -200,23 +200,30 @@
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchBar = document.querySelector(".search-bar");
-        const surahItems = document.querySelectorAll(".surah-item");
+    document.addEventListener('DOMContentLoaded', function () {
+    // Tampilkan nama pengguna yang login
+    const penggunaLogin = JSON.parse(localStorage.getItem('penggunaLogin'));
+    const elemenNama = document.querySelector('.username');
+    
+    if (penggunaLogin && penggunaLogin.namaLengkap) {
+        elemenNama.textContent = penggunaLogin.namaLengkap;
+    } else {
+        elemenNama.textContent = 'Tamu';
+    }
 
-        searchBar.addEventListener("input", function () {
-            const query = searchBar.value.toLowerCase();
+    // Fungsi pencarian
+    const kolomPencarian = document.querySelector('.search-bar');
+    const itemSurah = document.querySelectorAll('.surah-item');
 
-            surahItems.forEach(item => {
-                const surahText = item.textContent.toLowerCase();
-                if (surahText.includes(query)) {
-                    item.style.display = "block"; // Tampilkan surah yang cocok
-                } else {
-                    item.style.display = "none"; // Sembunyikan surah yang tidak cocok
-                }
-            });
+    kolomPencarian.addEventListener('input', function () {
+        const kueri = kolomPencarian.value.toLowerCase();
+
+        itemSurah.forEach(item => {
+            const teksSurah = item.textContent.toLowerCase();
+            item.style.display = teksSurah.includes(kueri) ? 'block' : 'none';
         });
     });
+});
 
   
 </script>
